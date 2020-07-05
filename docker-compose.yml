@@ -20,7 +20,7 @@ services:
     build:
       context: ./app
       args:
-        - USER=${USER}
+        - USER_NAME=${USER_NAME}
         - PUID=${PUID}
         - NODE_VERSION=${NODE_VERSION}
         - http_proxy
@@ -58,7 +58,7 @@ services:
     build:
       context: ./php-worker
       args:
-        - USER=${USER}
+        - USER_NAME=${USER_NAME}
         - PUID=${PUID}
         - PGID=${PGID}
         - PHP_VERSION=${PHP_VERSION}

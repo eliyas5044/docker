@@ -27,15 +27,15 @@ RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
 ;fi
 
 # Add a non-root user:
-ARG USER
-ENV USER ${USER}
+ARG USER_NAME
+ENV USER_NAME ${USER_NAME}
 ARG PUID=1000
 ENV PUID ${PUID}
 ARG PGID=1000
 ENV PGID ${PGID}
 
-RUN addgroup -g ${PGID} ${USER} && \
-    adduser -D -G ${USER} -u ${PUID} ${USER}
+RUN addgroup -g ${PGID} ${USER_NAME} && \
+    adduser -D -G ${USER_NAME} -u ${PUID} ${USER_NAME}
 
 #
 #--------------------------------------------------------------------------

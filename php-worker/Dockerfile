@@ -34,8 +34,8 @@ ENV PUID ${PUID}
 ARG PGID=1000
 ENV PGID ${PGID}
 
-RUN addgroup -g ${PGID} $USER && \
-    adduser -D -G $USER -u ${PUID} $USER
+RUN addgroup -g ${PGID} ${USER} && \
+    adduser -D -G ${USER} -u ${PUID} ${USER}
 
 #
 #--------------------------------------------------------------------------

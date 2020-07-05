@@ -69,11 +69,11 @@ ENV PGID ${PGID}
 
 # always run apt update when start and after add new source list, then clean up at end.
 #RUN useradd -G www-data,root -u $PUID -d /home/$USER $USER
-RUN groupadd -g $PGID $USER && \
-    useradd -u $PUID -g $USER -m $USER -G docker_env && \
-    usermod -p "*" $USER -s /bin/bash
+RUN groupadd -g $PGID ${USER} && \
+    useradd -u $PUID -g ${USER} -m ${USER} -G docker_env && \
+    usermod -p "*" ${USER} -s /bin/bash
 
-USER $USER
+USER ${USER}
 
 ###########################################################################
 # Node / NVM:
@@ -84,7 +84,7 @@ ARG NODE_VERSION=node
 ARG INSTALL_NPM_VUE_CLI=false
 ARG INSTALL_NPM_ANGULAR_CLI=false
 ENV NODE_VERSION ${NODE_VERSION}
-ENV NVM_DIR /home/$USER/.nvm
+ENV NVM_DIR /home/${USER}/.nvm
 
 RUN mkdir -p $NVM_DIR && \
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash \
@@ -98,7 +98,7 @@ RUN mkdir -p $NVM_DIR && \
         && if [ ${INSTALL_NPM_ANGULAR_CLI} = true ]; then \
         npm install -g @angular/cli \
         ;fi \
-        && ln -s `npm bin --global` /home/$USER/.node-bin
+        && ln -s `npm bin --global` /home/${USER}/.node-bin
 
 RUN echo "" >> ~/.bashrc && \
     echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc && \
@@ -108,11 +108,11 @@ RUN echo "" >> ~/.bashrc && \
 USER root
 
 RUN echo "" >> ~/.bashrc && \
-    echo 'export NVM_DIR="/home/$USER/.nvm"' >> ~/.bashrc && \
+    echo 'export NVM_DIR="/home/${USER}/.nvm"' >> ~/.bashrc && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> ~/.bashrc
 
 # Add PATH for node
-ENV PATH $PATH:/home/$USER/.node-bin
+ENV PATH $PATH:/home/${USER}/.node-bin
 
 RUN find $NVM_DIR -type f -name node -exec ln -s {} /usr/local/bin/node \; && \
     NODE_MODS_DIR="$NVM_DIR/versions/node/$(node -v)/lib/node_modules" && \
@@ -123,7 +123,7 @@ RUN find $NVM_DIR -type f -name node -exec ln -s {} /usr/local/bin/node \; && \
 # YARN:
 ###########################################################################
 
-USER $USER
+USER ${USER}
 
 ARG INSTALL_YARN=true
 ARG YARN_VERSION=latest

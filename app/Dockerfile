@@ -33,6 +33,7 @@ RUN apt-get update && \
         php7.4-bcmath \
         php7.4-gd \
         php7.4-dev \
+        php7.4-exif \
         pkg-config \
         libcurl4-openssl-dev \
         libedit-dev \

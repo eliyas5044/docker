@@ -1,7 +1,9 @@
 .idea
+.vscode
 /logs
 /data
 .env
+docker-compose.yml
 /.project
 .docker-sync
 /jenkins/jenkins_home
